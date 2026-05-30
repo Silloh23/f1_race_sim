@@ -1,4 +1,4 @@
-#!/Users/hollis/f1_race_sim/f1_race_sim/.venv/bin/python
+#!/Users/hollis/f1_race_sim/.venv/bin/python
 import sys
 from fontTools.__main__ import main
 if __name__ == '__main__':
