@@ -5,4 +5,5 @@ class RaceState:
         self.total_time = 0.0
         self.lap_times = []
         self.pit_stops = []
+        self.just_pitted = False
         self.position = 0
