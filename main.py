@@ -1,8 +1,10 @@
 from simulator.config import RaceConfig
 from simulator.race import RaceSimulator
 from simulator.monte_carlo import MonteCarloEngine
+from simulator.optuna import objective, objective1
 import matplotlib.pyplot as plt
 import numpy as np
+import optuna
 
 config = RaceConfig()
 sim = RaceSimulator(config)
@@ -27,6 +29,25 @@ print("One stop mc strategy time: ", monte_carlo_strat1["mean_time"])
 print("Two stop mc strategy time: ", monte_carlo_strat2["mean_time"])
 print("One stop mc strategy std: ", monte_carlo_strat1["std_time"])
 print("Two stop mc strategy std: ", monte_carlo_strat2["std_time"])
+
+study1 = optuna.create_study(direction="minimize")
+study1.optimize(objective1, n_trials = 100)
+
+study2 = optuna.create_study(direction="minimize")
+study2.optimize(objective, n_trials = 100)
+
+optimze_monte_carlo1 = mc.evaluate_strategy(study1.best_params)
+optimze_monte_carlo2 = mc.evaluate_strategy(study2.best_params)
+
+print(study1.best_params)
+print(study2.best_params)
+
+print("One stop optimal mc time: ", optimze_monte_carlo1["mean_time"])
+print("One stop optimal mc time: ", optimze_monte_carlo1["std_time"])
+print("Two stop optimal mc time: ", optimze_monte_carlo2["mean_time"])
+print("Two stop optimal mc time: ", optimze_monte_carlo2["std_time"])
+
+
 
 ### ----- Base Strategy Plot -----
 
@@ -65,16 +86,14 @@ axes[1].set_ylim(80)
 plt.tight_layout()
 plt.show()
 
-import matplotlib.pyplot as plt
+#------Monte Carlo------
 
 times_1 = monte_carlo_strat1["all_results"]
 times_2 = monte_carlo_strat2["all_results"]
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 10))
 
-# -------------------
-# Histogram Comparison
-# -------------------
+# ------Histogram Comparison------
 axes[0].hist(
     times_1,
     bins=30,
@@ -95,15 +114,52 @@ axes[0].set_ylabel("Frequency")
 axes[0].legend()
 axes[0].grid(True)
 
-# -------------------
-# Box Plot Comparison
-# -------------------
+# ------Box Plot Comparison------
 axes[1].boxplot(
     [times_1, times_2],
     tick_labels=["One Stop", "Two Stop"]
 )
 
 axes[1].set_title("Monte Carlo Strategy Box Plot")
+axes[1].set_ylabel("Race Time (s)")
+axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+# ------Optimal Mc------
+omc_1 = optimze_monte_carlo1["all_results"]
+omc_2 = optimze_monte_carlo2["all_results"]
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 10))
+# ------Histogram Comparison------
+axes[0].hist(
+    omc_1,
+    bins=30,
+    alpha=0.6,
+    label="One Stop"
+)
+
+axes[0].hist(
+    omc_2,
+    bins=30,
+    alpha=0.6,
+    label="Two Stop"
+)
+
+axes[0].set_title("Optimal Monte Carlo Race Time Distribution")
+axes[0].set_xlabel("Race Time (s)")
+axes[0].set_ylabel("Frequency")
+axes[0].legend()
+axes[0].grid(True)
+
+# ------Box Plot Comparison------
+axes[1].boxplot(
+    [times_1, times_2],
+    tick_labels=["One Stop", "Two Stop"]
+)
+
+axes[1].set_title("Optimal Monte Carlo Strategy Box Plot")
 axes[1].set_ylabel("Race Time (s)")
 axes[1].grid(True)
 
