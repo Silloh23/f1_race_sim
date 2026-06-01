@@ -18,34 +18,37 @@ base_2 = sim.run(two_stop)
 monte_carlo_strat1 = mc.evaluate_strategy(one_stop)
 monte_carlo_strat2 = mc.evaluate_strategy(two_stop)
 
-print("------Base Strategy------")
-print("One stop strategy time: ", base_1.total_time)
-print("Two stop strategy time: ", base_2.total_time)
-print("One stop pit stops: ", base_1.pit_stops)
-print("Two stop pit stops: ", base_2.pit_stops)
-
-print("------Monte Carlo Simulation------")
-print("One stop mc strategy time: ", monte_carlo_strat1["mean_time"])
-print("Two stop mc strategy time: ", monte_carlo_strat2["mean_time"])
-print("One stop mc strategy std: ", monte_carlo_strat1["std_time"])
-print("Two stop mc strategy std: ", monte_carlo_strat2["std_time"])
-
 study1 = optuna.create_study(direction="minimize")
 study1.optimize(objective1, n_trials = 100)
 
 study2 = optuna.create_study(direction="minimize")
 study2.optimize(objective, n_trials = 100)
 
-optimze_monte_carlo1 = mc.evaluate_strategy(study1.best_params)
-optimze_monte_carlo2 = mc.evaluate_strategy(study2.best_params)
+optimize_monte_carlo1 = mc.evaluate_strategy(study1.best_params)
+optimize_monte_carlo2 = mc.evaluate_strategy(study2.best_params)
 
-print(study1.best_params)
-print(study2.best_params)
+print("------Base Strategy------")
+print("One stop time: ", base_1.total_time)
+print("Two stop time: ", base_2.total_time)
+print("One stop pit stops: ", base_1.pit_stops)
+print("Two stop pit stops: ", base_2.pit_stops)
 
-print("One stop optimal mc time: ", optimze_monte_carlo1["mean_time"])
-print("One stop optimal mc time: ", optimze_monte_carlo1["std_time"])
-print("Two stop optimal mc time: ", optimze_monte_carlo2["mean_time"])
-print("Two stop optimal mc time: ", optimze_monte_carlo2["std_time"])
+print("------Monte Carlo Simulation------")
+print("One stop time: ", monte_carlo_strat1["mean_time"])
+print("Two stop time: ", monte_carlo_strat2["mean_time"])
+print("One stop std: ", monte_carlo_strat1["std_time"])
+print("Two stop std: ", monte_carlo_strat2["std_time"])
+
+print("------One stop optimal mc strategy------")
+print("Pitted: ", study1.best_params)
+print("Time: ", optimize_monte_carlo1["mean_time"])
+print("Std: ", optimize_monte_carlo1["std_time"])
+print("Mean time: ", optimize_monte_carlo1["average"], "Uncertainty: ", optimize_monte_carlo1["uncertainty"])
+print("------Two stop optimal mc strategy------")
+print("Pitted: ", study2.best_params)
+print("Time: ", optimize_monte_carlo2["mean_time"])
+print("Std: ", optimize_monte_carlo2["std_time"])
+print("Mean time: ", optimize_monte_carlo2["average"], "Uncertainty: ", optimize_monte_carlo2["uncertainty"])
 
 
 
@@ -128,8 +131,8 @@ plt.tight_layout()
 plt.show()
 
 # ------Optimal Mc------
-omc_1 = optimze_monte_carlo1["all_results"]
-omc_2 = optimze_monte_carlo2["all_results"]
+omc_1 = optimize_monte_carlo1["all_results"]
+omc_2 = optimize_monte_carlo2["all_results"]
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 10))
 # ------Histogram Comparison------
