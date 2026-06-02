@@ -1,67 +1,104 @@
 # F1 Race Strategy AI Simulator
 
-A modular simulation and optimisation framework for evaluating Formula 1 race strategies under uncertainty using Monte Carlo methods, statistical confidence intervals, and machine learning-based lap time prediction.
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Optuna](https://img.shields.io/badge/Optuna-Optimization-9146FF?style=for-the-badge)
+![MonteCarlo](https://img.shields.io/badge/simulation-monte%20carlo-green.svg)
+![Status](https://img.shields.io/badge/Status-Complete-00C853?style=for-the-badge)
+![ML Systems](https://img.shields.io/badge/ML-Systems-FF9800?style=for-the-badge)
 
 ---
 
-## Project Overview
+## Overview
 
-This project simulates full race weekends to answer a core question:
+A **Monte Carlo + optimisation framework** for evaluating Formula 1 pit-stop strategies under uncertainty.
 
-> What is the optimal pit-stop strategy under stochastic race conditions?
+This project models race performance as a **stochastic system** and uses simulation-based inference to determine optimal strategy decisions.
 
-It models:
+It combines:
+- Probabilistic race simulation
+- Monte Carlo estimation
+- Bayesian optimisation (Optuna)
+- Statistical confidence intervals
+- Interactive Streamlit dashboard
 
-* Lap time evolution
-* Tire degradation
-* Pit stop time loss
-* Random race noise (simulating real-world variability)
+---
 
-and uses:
+## Objective
 
-* Monte Carlo simulation
-* Confidence intervals
-* Bayesian/black-box optimisation (Optuna)
+> Determine the optimal pit-stop strategy that minimises expected race time under uncertainty.
+
+Instead of deterministic simulation, this project evaluates **distributional outcomes**.
+
+---
+
+## System Architecture
+┌────────────────────────────┐
+│  Parameter Configuration   │
+│  laps, pit loss, strategy  │
+└────────────┬───────────────┘
+             ▼
+┌────────────────────────────┐
+│  Stochastic Race Simulator │
+│  - Lap time model          │
+│  - Tire degradation        │
+│  - Pit stop dynamics       │
+└────────────┬───────────────┘
+             ▼
+┌────────────────────────────┐
+│  Monte Carlo Engine        │
+│  100 - 1000 rollouts       │
+│  uncertainty modelling     │
+└────────────┬───────────────┘
+             ▼
+┌────────────────────────────┐
+│  Statistical Inference     │
+│  mean / variance / CI      │
+└────────────┬───────────────┘
+             ▼
+┌────────────────────────────┐
+│  Bayesian Optimisation     │
+│  Optuna strategy search    │
+└────────────┬───────────────┘
+             ▼
+┌────────────────────────────┐
+│  Analytics Dashboard       │
+│  insights + visualisation  │
+└────────────────────────────┘
 
 ---
 
 ## Key Features
 
-### Race Simulation Engine
+- Physics-inspired race simulation (lap time + tire degradation + pit stops)
+- Monte Carlo simulation (100 - 5000 runs per strategy)
+- 95% confidence intervals for robust comparison
+- Optuna-based strategy optimisation
+- Strategy benchmarking under uncertainty
+- Interactive Streamlit dashboard
 
-* Physics-inspired lap time model
-* Tire degradation over time
-* Pit-stop reset mechanics
-* Stochastic noise for realism
+---
 
-### Monte Carlo Evaluation
+## Dashboard Preview
 
-* 500 race simulations per strategy
-* Distribution of finishing times
-* Mean, variance, and risk analysis
+### Main Dashboard
 
-### Uncertainty Quantification
+![Dashboard](assets/f1_base_graphs.png)
 
-* 95% confidence intervals for all strategies
-* Statistical comparison of strategy performance
-* Overlap analysis for decision robustness
+---
 
-### Strategy Optimisation (Optuna)
+### Optimized Strategy Plots
 
-* Automated pit-stop strategy search
-* Black-box optimisation over discrete pit windows
-* Efficient exploration of strategy space
+![Optimized Graphs](assets/f1_optimize_graphs.png)
 
 ---
 
 ## Example Output
 
-### Strategy Comparison
-
 | Strategy | Mean Time | Uncertainty |
-| -------- | --------- | ----------- |
-| 1-stop   | 5538.66s  |   0.5297    |
-| 2-stop   | 5538.92s  |   0.5107    |
+|----------|----------|--------------|
+| 1-stop   | 5538.83s |    0.5528    |
+| 2-stop   | 5538.71s |    0.5446    |
 
 Demonstrates statistically close performance under uncertainty.
 
@@ -73,6 +110,7 @@ Demonstrates statistically close performance under uncertainty.
 * NumPy
 * Matplotlib
 * Optuna (Bayesian optimisation)
+* Streamlit
 
 ---
 
@@ -81,7 +119,8 @@ Demonstrates statistically close performance under uncertainty.
 ```
 f1_race_sim/
 │
-├── main.py                  # Entry point / experiments
+├── main.py                  # Local Testing
+├── app.py                  # Streamlit Dashboard
 ├── simulator/              # Core race simulation engine
 │   ├── race.py
 │   ├── monte_carlo.py
@@ -89,41 +128,29 @@ f1_race_sim/
 |   ├── state.py
 │   └── optuna.py
 │
-├── utils/
-│   └── stats.py            # CI, metrics, helpers
+├── assets/
+|   ├── f1_base_graphs.png
+│   └── f1_optimize_graphs.png
+|
 │
+├── README.md
 └── requirements.txt
 ```
 
 ---
 
-## Methodology
-
-1. Define race environment (laps, tire degradation, pit loss)
-2. Simulate full race under a given strategy
-3. Run Monte Carlo simulations to capture randomness
-4. Compute statistical performance metrics
-5. Optimise strategy using Optuna
-
----
-
-## Key Insight
-
-Rather than relying on deterministic race outcomes, this system models **distributional performance**, enabling:
-
-> Robust strategy optimisation under uncertainty instead of single-run optimisation.
-
----
-
-## How to Run
+## Run Locally
 
 ```bash
-# install dependencies
+# Clone repository
+git clone https://github.com/Silloh23/f1_race_sim.git
+cd f1_race_sim
+
+# Install dependencies
 pip install -r requirements.txt
 
-# run simulation
-python main.py
-```
+# Run Streamlit dashboard
+streamlit run app.py
 
 ---
 
@@ -133,7 +160,6 @@ python main.py
 * Weather and safety car modelling
 * Multi-car race interactions
 * Real F1 telemetry dataset integration
-* Streamlit dashboard for interactive strategy analysis
 
 ---
 
@@ -152,4 +178,3 @@ python main.py
 Built as a simulation + ML systems project exploring:
 
 > decision-making under uncertainty in dynamic racing environments
-
