@@ -1,6 +1,6 @@
 # F1 Race Strategy AI Simulator
 ## Live Demo
-👉 https://https://f1racesim.streamlit.app/
+👉 https://f1racesim.streamlit.app/
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
@@ -194,4 +194,4 @@ Built as a simulation + ML systems project exploring:
 
 Try the interactive dashboard here:
 
-👉 https://https://f1racesim.streamlit.app/
+👉 https://f1racesim.streamlit.app/
