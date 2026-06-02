@@ -1,6 +1,4 @@
 # F1 Race Strategy AI Simulator
-## Live Demo
-👉 https://f1racesim.streamlit.app/
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
@@ -187,11 +185,3 @@ streamlit run app.py
 Built as a simulation + ML systems project exploring:
 
 > decision-making under uncertainty in dynamic racing environments
-
----
-
-## Live Demo
-
-Try the interactive dashboard here:
-
-👉 https://f1racesim.streamlit.app/
