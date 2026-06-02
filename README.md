@@ -3,7 +3,6 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Optuna](https://img.shields.io/badge/Optuna-Optimization-9146FF?style=for-the-badge)
-![MonteCarlo](https://img.shields.io/badge/simulation-monte%20carlo-green.svg)
 ![Status](https://img.shields.io/badge/Status-Complete-00C853?style=for-the-badge)
 ![ML Systems](https://img.shields.io/badge/ML-Systems-FF9800?style=for-the-badge)
 
@@ -33,38 +32,46 @@ Instead of deterministic simulation, this project evaluates **distributional out
 ---
 
 ## System Architecture
-┌────────────────────────────┐
-│  Parameter Configuration   │
-│  laps, pit loss, strategy  │
-└────────────┬───────────────┘
-             ▼
-┌────────────────────────────┐
-│  Stochastic Race Simulator │
-│  - Lap time model          │
-│  - Tire degradation        │
-│  - Pit stop dynamics       │
-└────────────┬───────────────┘
-             ▼
-┌────────────────────────────┐
-│  Monte Carlo Engine        │
-│  100 - 1000 rollouts       │
-│  uncertainty modelling     │
-└────────────┬───────────────┘
-             ▼
-┌────────────────────────────┐
-│  Statistical Inference     │
-│  mean / variance / CI      │
-└────────────┬───────────────┘
-             ▼
-┌────────────────────────────┐
-│  Bayesian Optimisation     │
-│  Optuna strategy search    │
-└────────────┬───────────────┘
-             ▼
-┌────────────────────────────┐
-│  Analytics Dashboard       │
-│  insights + visualisation  │
-└────────────────────────────┘
+
+```
++------------------------------+
+| Parameter Configuration      |
+| laps, pit loss, strategy     |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Stochastic Race Simulator    |
+| - Lap time model             |
+| - Tire degradation           |
+| - Pit stop dynamics          |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Monte Carlo Engine           |
+| 100–10,000 rollouts         |
+| uncertainty modelling        |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Statistical Inference       |
+| mean / variance / CI        |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Bayesian Optimisation       |
+| Optuna strategy search      |
++--------------+---------------+
+               |
+               v
++------------------------------+
+| Analytics Dashboard         |
+| insights + visualisation    |
++------------------------------+
+```
 
 ---
 
@@ -151,7 +158,7 @@ pip install -r requirements.txt
 
 # Run Streamlit dashboard
 streamlit run app.py
-
+```
 ---
 
 ## Future Improvements
