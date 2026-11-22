@@ -1,0 +1,40 @@
+{
+  "data_source": "FastF1-derived lap CSV (KevalXD/CleanCurve raw_data/laps_raw.csv)",
+  "data_source_url": "https://github.com/KevalXD/CleanCurve/blob/main/raw_data/laps_raw.csv",
+  "train_races": [
+    "2023 Bahrain",
+    "2023 Great Britain"
+  ],
+  "held_out_races": [
+    "2023 Spain"
+  ],
+  "training_stints": 99,
+  "training_stints_by_race": {
+    "2023 Bahrain": 57,
+    "2023 Great Britain": 42
+  },
+  "held_out_stints_by_race": {
+    "2023 Spain": 56
+  },
+  "calibrated_seconds_per_tyre_lap": 0.031263500608515564,
+  "held_out_error": {
+    "laps": 1018,
+    "mae_seconds": 0.6211258238103816,
+    "rmse_seconds": 0.8090488417719877
+  },
+  "held_out_error_by_race": {
+    "2023 Spain": {
+      "laps": 1018,
+      "mae_seconds": 0.6211258238103816,
+      "rmse_seconds": 0.8090488417719877
+    }
+  },
+  "baseline_seconds_per_tyre_lap": 0.08,
+  "baseline_held_out_error": {
+    "laps": 1018,
+    "mae_seconds": 0.5343565815324165,
+    "rmse_seconds": 0.684880006842149
+  },
+  "fuel_burn_correction_seconds_per_lap": 0.055,
+  "method": "Ordinary least squares through origin on each clean stint's lap-time delta from its first clean green-flag lap, pooled across compounds. Held-out error is lap-weighted MAE/RMSE on later laps."
+}

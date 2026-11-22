@@ -10,9 +10,7 @@ class RaceSimulator:
         degradation = state.tire_age * self.config.degradation_rate
         noise = np.random.normal(0, self.config.noise_std)
         
-        fresh_tire_bonus = max(0, 0.5 - 0.05 * state.tire_age)
-        
-        lap_time = self.config.base_lap_time + degradation + noise - fresh_tire_bonus
+        lap_time = self.config.base_lap_time + degradation + noise
         
         if state.just_pitted:
             lap_time += self.config.pit_loss
